@@ -30,7 +30,6 @@ class ptw_workController extends Controller
     {
         $users = Auth::user();
         
-
         $data = Ptw_work::where('Ptw_works.company_id', '=', $users->company_id)
             ->orderBy('Ptw_works.id','DESC')
         ->get('Ptw_works.*');

@@ -14,6 +14,7 @@ use App\Http\Controllers\BackEnd\ptw_detailsController;
 use App\Http\Controllers\BackEnd\ptw_IsolationController;
 use App\Http\Controllers\BackEnd\ptw_offerController;
 use App\Http\Controllers\BackEnd\ptw_workController;
+use App\Http\Controllers\BackEnd\ErpControllerController;
 use App\Http\Controllers\BackEnd\RectifiedInspectionController;
 
 use App\Http\Controllers\BackEnd\AccidentInvestigationController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\CompanySetup\EmployeeController;
 use App\Http\Controllers\SafetyCommittee\SafetyCommitteeController;
 use App\Http\Controllers\SWP\SafeWorkProcedureController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BackEnd\CompanyProfileController;
 
@@ -250,7 +252,7 @@ Route::group(['middleware' => ['auth'], 'name' => 'safety_committee', 'as' => 's
     Route::get('safety_committee', [SafetyCommitteeController::class, 'index'])->name('index');
     Route::get('safety_committee/getData/', [SafetyCommitteeController::class, 'getData'])->name('getData');
     Route::get('safety_committee/chart/', [SafetyCommitteeController::class, 'chart'])->name('chart');
-    Route::post('safety_committee/store', [SafetyCommitteeController::class, 'store'])->name('store');
+    Route::POST('safety_committee/store', [SafetyCommitteeController::class, 'store'])->name('store');
     Route::post('safety_committee/edit/{id}', [SafetyCommitteeController::class, 'edit'])->name('edit');
     Route::post('safety_committee/update/{id}', [SafetyCommitteeController::class, 'update'])->name('update');
 
@@ -349,7 +351,8 @@ Route::group(['middleware' => ['auth'],'name' => 'i_schadule', 'as' => 'i_schadu
 
 });
 
-Route::group([ 'middleware' => ['auth'],'name' => 'schadule', 'as' => 'schadule.'], function () {
+Route::group(['name' => 'schadule', 'as' => 'schadule.'], function () 
+{
     Route::get('schadule', [SchaduleController::class, 'index'])->name('index');
     Route::POST('schadule-store', [SchaduleController::class, 'store'])->name('store');
     Route::get('schadule-edit/{id}', [SchaduleController::class, 'edit'])->name('edit');
@@ -441,6 +444,33 @@ Route::group(['middleware' => ['auth'],'name' => 'ptw_isolation', 'as' => 'ptw_i
     Route::get('ptw-isolation-data-list', [ptw_IsolationController::class, 'datatable'])->name('datatable');
     Route::get('ptw-isolation-destroy/{id}', [ptw_IsolationController::class, 'destroy'])->name('destroy');
     Route::get('ptw-isolation-data-view/{id}', [ptw_IsolationController::class, 'view'])->name('view');
+
+
+});
+
+
+Route::group(['middleware' => ['auth'],'name' => 'demo', 'as' => 'demo.'], function () {
+    Route::get('demo', [DemoController::class, 'index'])->name('index');
+    Route::POST('demo-store', [DemoController::class, 'store'])->name('store');
+    Route::get('demo-edit/{id}', [DemoController::class, 'edit'])->name('edit');
+    Route::put('demo-update/{id}', [DemoController::class, 'update'])->name('update');
+    Route::get('demo-data-list-view', [DemoController::class, 'listview'])->name('listview');
+    Route::get('demo-data-list', [DemoController::class, 'datatable'])->name('datatable');
+    Route::get('demo-destroy/{id}', [DemoController::class, 'destroy'])->name('destroy');
+    Route::get('demo-data-view/{id}', [DemoController::class, 'view'])->name('view');
+
+
+});
+
+
+Route::group(['middleware' => ['auth'], 'name' => 'erp', 'as' => 'erp.'], function () {
+
+    Route::get('ERP-List', [ErpControllerController::class, 'index'])->name('index');
+    Route::get('ERP/getData/', [ErpControllerController::class, 'getData'])->name('getData');
+    Route::get('ERP/chart/', [ErpControllerController::class, 'chart'])->name('chart');
+    Route::post('ERP/store', [ErpControllerController::class, 'store'])->name('store');
+    Route::post('ERP/edit/{id}', [ErpControllerController::class, 'edit'])->name('edit');
+    Route::post('ERP/update/{id}', [ErpControllerController::class, 'update'])->name('update');
 
 
 });

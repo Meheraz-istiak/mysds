@@ -39,6 +39,19 @@
             </ul>
 
 
+        <ul class="navbar-nav flex-column">
+                <li>
+                    <a class="nav-link"
+                       href="{{route('demo.index')}}">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                    class="fas fa-home"></span></span>
+                            <span class="nav-link-text"> Demo</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+
+
             <ul class="navbar-nav flex-column">
                 <li class="nav-item"><a class="nav-link dropdown-indicator" href="#companyprofile"
                                         data-toggle="collapse" role="button" aria-expanded="false"
@@ -336,6 +349,37 @@
                                 </div>
                             </a>
                         </li>
+                    </ul>
+                </li>
+            </ul>
+
+              <ul class="navbar-nav flex-column">
+                <li class="nav-item"><a class="nav-link dropdown-indicator" href="#ERP" data-toggle="collapse"
+                                        role="button" aria-expanded="false" aria-controls="hirarc">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                    class="fas fa-cog"></span></span><span class="nav-link-text">ERP</span>
+                        </div>
+                    </a>
+                    
+                    <ul class="nav collapse" id="ERP" data-parent="#navbarVerticalCollapse">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('erp.chart')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-user"></span></span><span
+                                        class="nav-link-text">ERT Chart</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('erp.index')}}">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-user"></span></span><span
+                                        class="nav-link-text">ERT List</span>
+                                </div>
+                            </a>
+                        </li>
+                     
                     </ul>
                 </li>
             </ul>

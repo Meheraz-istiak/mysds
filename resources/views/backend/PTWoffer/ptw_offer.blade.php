@@ -247,7 +247,7 @@
 
         </div>
         <div class="card-body">
-            <table id="myProjectTable" class="table table-hover datatable "
+            <table id="myProjectTable" class="table table-hover datatable align-middle mb-0 "
                    style="width:100%">
                 <thead>
                 <tr>
@@ -275,11 +275,6 @@
 @endsection
 
 @section('javascript')
-    <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script>
-
-    <!-- Plugin Js-->
-    <script src="{{asset('assets/bundles/dataTables.bundle.js')}}"></script>
-
     <!-- Jquery Page Js -->
        <script>
         // project data table
@@ -290,7 +285,35 @@
             $('#myProjectTable').DataTable({
                 processing: true,
                 serverSide: true,
-                dom: 'lBfrtip<"actions">',
+                 dom: 'lBfrtip<"actions">',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Department Data',
+                        text:      '<i class="fa-solid fa-file-excel"></i> Excel',
+                        className: "btn btn-primary btn-sm btn-rounded",
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                    },
+
+                     {
+                        extend: 'print',
+                        title: 'Department Data',
+                        alignment: "center",
+                        header: true,
+                        text:  '<i class="fa-solid fa-print"></i> Print',
+                        className: "btn btn-success btn-sm btn-rounded",
+                        exportOptions: {
+                            columns: ':visible',
+                            alignment: "center",
+                        },
+                        // customize: function(doc) {
+                        //     console.log(doc)
+                        // }
+                    },
+                   
+                ],
                
                 ajax: {
                     url: "{{ route('ptw_offer.datatable') }}",
@@ -319,34 +342,6 @@
             });
         });
     </script>
-
-
-
-<!--     <script>
-        // project data table
-        $(document).ready(function () {
-            $('#myProjectTable')
-                .addClass('nowrap')
-                .dataTable({
-                    responsive: true,
-                    columnDefs: [
-                        {targets: [-1, -3], className: 'dt-body-left'}
-                    ]
-                });
-            $('.deleterow').on('click', function () {
-                var tablename = $(this).closest('table').DataTable();
-                tablename
-                    .row($(this)
-                        .parents('tr'))
-                    .remove()
-                    .draw();
-
-            });
-        });
-    </script -->>
-
-
-
 
 
 @endsection

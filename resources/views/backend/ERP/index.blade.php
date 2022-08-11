@@ -49,7 +49,7 @@
                     border-bottom flex-wrap">
                         <div class="row">
                             <div class="col-md-6">
-                                <h3 class="fw-bold mb-0">Safety Committee List</h3>
+                                <h3 class="fw-bold mb-0">ERP List</h3>
                             </div>
                             <div class="col-md-3">
                                 <a class="btn btn-info btn-sm" href="{{ route('committee.index') }}">
@@ -61,7 +61,7 @@
                                         id="modal-btn"
                                         class="btn btn-primary btn-sm"
                                         data-bs-toggle="modal" data-bs-target="#expAdd">
-                                    <i class="fas fa-plus-circle"></i> Add Safety Committee
+                                    <i class="fas fa-plus-circle"></i>Add ERP
                                 </button>
                             </div>
                         </div>
@@ -71,47 +71,88 @@
 
                         @php
 
-                            $count = $management_representative->count();
+                            $count_Manager =  $Security_Manager->count();
 
-                            $count_emp_rep = $employee_representative->count();
+                            $count_emergency_manager =  $emergency_manager->count();
 
-                            $count_chairman = $chairman->count();
+                            $count_incident_manager =  $incident_manager->count();
 
-                            $count_secretary = $secretary->count();
+                            $count_search_rescue_team =  $search_rescue_team->count();
+
+                            $count_medic_team =  $medic_team->count();
+
+                            $count_area_warden =  $area_warden->count();
+
+                            $count_traffic_control =  $traffic_control->count();
+                            
 
                         @endphp
 
-                        @if($count_chairman !== 0)
+                       
 
-                            <h1 class="mb-4 mt-4 committee-designation"> {{ $chairman[0]->designation }} </h1>
+                        
 
-                        @endif
+                        @if($count_Manager !== 0)
 
-                        <div id="chairman"></div>
-
-                        @if($count_secretary !== 0)
-
-                            <h1 class="mb-4 mt-4 committee-designation"> {{ $secretary[0]->designation }} </h1>
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $Security_Manager[0]->designation }} </h1>
 
                         @endif
 
-                        <div id="secretary"></div>
+                        <div id="Security_Manager"></div>
 
-                        @if($count_emp_rep !== 0)
 
-                            <h1 class="mb-4 mt-4 committee-designation"> {{ $employee_representative[0]->designation }} </h1>
 
-                        @endif
+                        @if($count_emergency_manager !== 0)
 
-                        <div id="employee_representative"></div>
-
-                        @if($count !== 0)
-
-                            <h1 class="mb-4 mt-4 committee-designation"> {{ $management_representative[0]->designation }} </h1>
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $emergency_manager[0]->designation }} </h1>
 
                         @endif
 
-                        <div id="management_representative"></div>
+                        <div id="emergency_manager"></div>
+
+                        @if($count_incident_manager !== 0)
+
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $incident_manager[0]->designation }} </h1>
+
+                        @endif
+
+                        <div id="incident_manager"></div>
+
+
+                       @if($count_search_rescue_team !== 0)
+
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $search_rescue_team[0]->designation }} </h1>
+
+                        @endif
+
+                        <div id="search_rescue_team"></div>
+
+
+
+                        @if($count_medic_team !== 0)
+
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $medic_team[0]->designation }} </h1>
+
+                        @endif
+
+                        <div id="medic_team"></div>
+
+                        @if($count_area_warden !== 0)
+
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $area_warden[0]->designation }} </h1>
+
+                        @endif
+
+                        <div id="area_warden"></div>
+
+
+                        @if($count_traffic_control !== 0)
+
+                            <h1 class="mb-4 mt-4 committee-designation"> {{ $traffic_control[0]->designation }} </h1>
+
+                        @endif
+
+                        <div id="traffic_control"></div>
 
                     </div>
 
@@ -123,11 +164,11 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add Safety Commity Member</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Add ERP Member</h5>
                                 <button class="close close-btn" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                <form method="POST" id="committee" enctype="multipart/form-data">
+                                <form method="POST" action="{{route('erp.store')}}" enctype="multipart/form-data">
 
                                     @csrf
 
@@ -175,17 +216,20 @@
 
                                                 <option value="">Select Position</option>
 
-                                                <option id="ch" value="Chairman">Chairman</option>
+                                                <option id="ch" value="Emergency Manager">Emergency Manager</option>
 
-                                                <option id="sec" value="Secretary">Secretary</option>
+                                                <option id="in" value="Incident Manager">Incident Manager</option>
 
-                                                <option value="EMPLOYEE REPRESENTATIVE">EMPLOYEE REPRESENTATIVE</option>
+                                                <option id="sec" value="Security Manager">Security Manager</option>
 
-                                                <option value="MANAGEMENT/EMPLOYER REPRESENTATIVE">
+                                                <option id="srt" value="Search Rescue Team">Search Rescue Team</option>
 
-                                                    MANAGEMENT/EMPLOYER REPRESENTATIVE
 
-                                                </option>
+                                                <option id="mt" value="Medic Team">Medic Team</option>
+
+                                                <option id="aw" value="Area Warden">Area Warden</option>
+
+                                                <option id="tc" value="Traffic Control">Traffic Control</option>
 
                                             </select>
 
@@ -235,8 +279,7 @@
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" id="edit_committee_form" enctype="multipart/form-data">
-
+                                <form method="POST"   id="edit_committee_form" enctype="multipart/form-data">
                                     @csrf
 
                                     <input type="hidden" name="id" id="edit_form_id">
@@ -285,18 +328,20 @@
 
                                                 <option value="">Select Position</option>
 
-                                                <option value="Chairman">Chairman</option>
+                                                <option value="Emergency Manager">Emergency Manager</option>
 
-                                                <option value="Secretary">Secretary</option>
+                                                <option  value="Incident Manager">Incident Manager</option>
 
-                                                <option value="EMPLOYEE REPRESENTATIVE">EMPLOYEE REPRESENTATIVE</option>
+                                                <option  value="Security Manager">Security Manager</option>
 
-                                                <option value="MANAGEMENT/EMPLOYER REPRESENTATIVE">
+                                                <option value="Search Rescue Team">Search Rescue Team</option>
 
-                                                    MANAGEMENT/EMPLOYER REPRESENTATIVE
 
-                                                </option>
+                                                <option value="Medic Team">Medic Team</option>
 
+                                                <option value="Area Warden">Area Warden</option>
+
+                                                <option value="Traffic Control">Traffic Control</option>
                                             </select>
 
                                         </div>
@@ -370,11 +415,11 @@
 
 
 
-            $.get('/safety_committee/getData', function (data) {
+            $.get('/ERP/getData', function (data) {
 
-                console.log(data);
+                console.log(data.traffic_contro);
 
-                if (data.chairman[0].designation === 'Chairman')
+                if (data.emergency_manager[0].designation === 'Emergency Manager')
 
                 {
 
@@ -382,11 +427,52 @@
 
                 }
 
-                if (data.secretary[0].designation === 'Secretary')
+                if (data.Security_Manager[0].designation === 'Security Manager')
 
                 {
 
                     $('#sec').css('display', 'none');
+
+                }
+
+                if (data.incident_manager[0].designation === 'Incident Manager')
+
+                {
+
+                    $('#in').css('display', 'none');
+
+                }
+
+
+               if (data.search_rescue_team[0].designation === 'Search Rescue Team')
+
+                {
+
+                    $('#srt').css('display', 'none');
+
+                }
+
+                if (data.medic_team[0].designation === 'Medic Team')
+
+                {
+
+                    $('#mt').css('display', 'none');
+
+                }
+
+                if (data.area_warden[0].designation === 'Area Warden')
+
+                {
+
+                    $('#aw').css('display', 'none');
+
+                }
+
+                if (data.traffic_control[0].designation === 'Traffic Control')
+
+                {
+
+                    $('#tc').css('display', 'none');
 
                 }
 
@@ -416,7 +502,7 @@
 
                     method:"POST",
 
-                    url: "{{ route('safety_committee.store') }}",
+                    url: "{{ route('erp.store') }}",
 
                     data: formData,
 
@@ -454,29 +540,43 @@
 
             });
 
-            let committeeData = $.get('{{ route('safety_committee.getData') }}',function(data){
+            let committeeData = $.get('{{ route('erp.getData') }}',function(data){
 
-                let chairman = data.chairman
+                let Security_Manager = data.Security_Manager
 
-                let secretary = data.secretary
+                let emergency_manager = data.emergency_manager
 
-                let employee_representative = data.employee_representative
+                let incident_manager = data.incident_manager
 
-                let management_representative = data.management_representative
+                let search_rescue_team = data.search_rescue_team
 
-                let res='';
+                let medic_team = data.medic_team
 
-                let sec_res='';
+                let area_warden = data.area_warden
 
-                let emp_representative_res='';
+                let traffic_control = data.traffic_control
 
-                let management_representative_res='';
+                
 
-                $.each (chairman, function (key, value) {
+                let Security_Manager_res='';
+
+                let emergency_manager_res='';
+
+                let incident_manager_res='';
+
+                let search_rescue_team_res='';
+
+                let medic_team_res='';
+
+                let area_warden_res='';
+
+                let traffic_control_res='';
 
 
+                 $.each (traffic_control, function (key, value)
+                 {
 
-                    res +=
+                    traffic_control_res +=
 
                         "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
 
@@ -535,21 +635,24 @@
 
 
 
-                });
+                }
+                );
 
-                $.each (secretary, function (key, value) {
 
-                    // console.log(value)
+                $.each (area_warden, function (key, value)
+                 {
 
-                    sec_res +=
+                    area_warden_res +=
 
                         "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
 
                         "                                <div class=\"card-header d-flex justify-content-end\">\n" +
-                        "                                    <a style=\"margin-right:1rem\" href=\"javascript:void(0)\"\n" +
+
+                        "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
-                        "> Send Mail <i class=\"fas fa-paper-plane\"></i></a>\n" +
+                        ">Send Mail <i class=\"fas fa-paper-plane\"></i></a>\n" +
+
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
@@ -575,7 +678,7 @@
                         "                                    </div>\n" +
 
                         "                                    <div class=\"right committee-info-div\">\n" +
-                        "                                        <h4 style=\"text-align: right; margin-right: 20px\">\n" +
+                        "                                        <h4 style=\"text-align: right; margin-right: 20px; \">\n" +
 
                         "                                        <h3 class=\"committee-name\">\n" +
 
@@ -584,10 +687,9 @@
                         "                                        </h3>\n" +
 
 
-
                         "                                        <p style=\"text-align: right; margin-right: 20px\">\n" +
 
-                        "                                              Designation: "+value.ds_name+" \n" +
+                        "                                            Designation: "+value.ds_name+" \n" +
 
                         "                                        </p>\n" +
 
@@ -599,28 +701,31 @@
 
 
 
-                });
+                }
+                );
 
-                $.each (employee_representative, function (key, value) {
 
-                    // console.log(value)
+                $.each (medic_team, function (key, value)
+                 {
 
-                    emp_representative_res +=
+                    medic_team_res +=
 
                         "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
 
                         "                                <div class=\"card-header d-flex justify-content-end\">\n" +
+
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
                         ">Send Mail <i class=\"fas fa-paper-plane\"></i></a>\n" +
+
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
 
                         "                                       data-bs-toggle=\"modal\"\n" +
 
-                        "                                       data-bs-target=\"#edit_committee\"> <i class=\"fas fa-edit\"></i></a>\n" +
+                        "                                       data-bs-target=\"#edit_committee\"> Edit <i class=\"fas fa-edit\"></i></a>\n" +
 
                         "                                </div>\n" +
 
@@ -639,7 +744,8 @@
                         "                                    </div>\n" +
 
                         "                                    <div class=\"right committee-info-div\">\n" +
-                        "                                        <h4 style=\"text-align: right; margin-right: 20px\">\n" +
+                        "                                        <h4 style=\"text-align: right; margin-right: 20px; \">\n" +
+
                         "                                        <h3 class=\"committee-name\">\n" +
 
                         "                                            Name: "+value.em_name+"\n" +
@@ -647,10 +753,9 @@
                         "                                        </h3>\n" +
 
 
-
                         "                                        <p style=\"text-align: right; margin-right: 20px\">\n" +
 
-                        "                                          Designation: "+value.ds_name+" \n" +
+                        "                                            Designation: "+value.ds_name+" \n" +
 
                         "                                        </p>\n" +
 
@@ -662,28 +767,31 @@
 
 
 
-                });
+                }
+                );
 
-                $.each (management_representative, function (key, value) {
 
-                    // console.log(value)
+                $.each (search_rescue_team, function (key, value)
+                 {
 
-                    management_representative_res +=
+                    search_rescue_team_res +=
 
                         "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
 
                         "                                <div class=\"card-header d-flex justify-content-end\">\n" +
+
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
                         ">Send Mail <i class=\"fas fa-paper-plane\"></i></a>\n" +
+
                         "                                    <a href=\"javascript:void(0)\"\n" +
 
                         "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
 
                         "                                       data-bs-toggle=\"modal\"\n" +
 
-                        "                                       data-bs-target=\"#edit_committee\"> <i class=\"fas fa-edit\"></i></a>\n" +
+                        "                                       data-bs-target=\"#edit_committee\"> Edit <i class=\"fas fa-edit\"></i></a>\n" +
 
                         "                                </div>\n" +
 
@@ -702,8 +810,7 @@
                         "                                    </div>\n" +
 
                         "                                    <div class=\"right committee-info-div\">\n" +
-
-                        "                                        <h4 style=\"text-align: right; margin-right: 20px\">\n" +
+                        "                                        <h4 style=\"text-align: right; margin-right: 20px; \">\n" +
 
                         "                                        <h3 class=\"committee-name\">\n" +
 
@@ -712,10 +819,9 @@
                         "                                        </h3>\n" +
 
 
-
                         "                                        <p style=\"text-align: right; margin-right: 20px\">\n" +
 
-                        "                                             Designation: "+value.ds_name+" \n" +
+                        "                                            Designation: "+value.ds_name+" \n" +
 
                         "                                        </p>\n" +
 
@@ -727,15 +833,224 @@
 
 
 
-                });
+                }
+                );
 
-                $('#chairman').html(res);
 
-                $('#secretary').html(sec_res);
+                $.each (incident_manager, function (key, value)
+                 {
 
-                $('#employee_representative').html(emp_representative_res);
+                    incident_manager_res +=
 
-                $('#management_representative').html(management_representative_res);
+                        "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
+
+                        "                                <div class=\"card-header d-flex justify-content-end\">\n" +
+
+                        "                                    <a href=\"javascript:void(0)\"\n" +
+
+                        "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
+                        ">Send Mail <i class=\"fas fa-paper-plane\"></i></a>\n" +
+
+                        "                                    <a href=\"javascript:void(0)\"\n" +
+
+                        "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
+
+                        "                                       data-bs-toggle=\"modal\"\n" +
+
+                        "                                       data-bs-target=\"#edit_committee\"> Edit <i class=\"fas fa-edit\"></i></a>\n" +
+
+                        "                                </div>\n" +
+
+                        "                                <div class=\"row\" style=\"padding: 20px 0px\">\n" +
+
+                        "                                    <div class=\"left\" style=\"float: left; width: 40%\">\n" +
+
+                        "                                        <img class=\"committee-img\"\n" +
+
+                        "                                             src=\"{{ asset('uploads/l_employees') }}"+'/'+"" +value.em_profile+"\"\n" +
+
+                        "                                             alt=\"\"\n" +
+
+                        "                                             height=\"150px\"/>\n" +
+
+                        "                                    </div>\n" +
+
+                        "                                    <div class=\"right committee-info-div\">\n" +
+                        "                                        <h4 style=\"text-align: right; margin-right: 20px; \">\n" +
+
+                        "                                        <h3 class=\"committee-name\">\n" +
+
+                        "                                            Name: "+value.em_name+"\n" +
+
+                        "                                        </h3>\n" +
+
+
+                        "                                        <p style=\"text-align: right; margin-right: 20px\">\n" +
+
+                        "                                            Designation: "+value.ds_name+" \n" +
+
+                        "                                        </p>\n" +
+
+                        "                                    </div>\n" +
+
+                        "                                </div>\n" +
+
+                        "                            </div>"
+
+
+
+                }
+                );
+
+
+                $.each (emergency_manager, function (key, value)
+                 {
+
+                    emergency_manager_res +=
+
+                        "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
+
+                        "                                <div class=\"card-header d-flex justify-content-end\">\n" +
+
+                        "                                    <a href=\"javascript:void(0)\"\n" +
+
+                        "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
+                        ">Send Mail <i class=\"fas fa-paper-plane\"></i></a>\n" +
+
+                        "                                    <a href=\"javascript:void(0)\"\n" +
+
+                        "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
+
+                        "                                       data-bs-toggle=\"modal\"\n" +
+
+                        "                                       data-bs-target=\"#edit_committee\"> Edit <i class=\"fas fa-edit\"></i></a>\n" +
+
+                        "                                </div>\n" +
+
+                        "                                <div class=\"row\" style=\"padding: 20px 0px\">\n" +
+
+                        "                                    <div class=\"left\" style=\"float: left; width: 40%\">\n" +
+
+                        "                                        <img class=\"committee-img\"\n" +
+
+                        "                                             src=\"{{ asset('uploads/l_employees') }}"+'/'+"" +value.em_profile+"\"\n" +
+
+                        "                                             alt=\"\"\n" +
+
+                        "                                             height=\"150px\"/>\n" +
+
+                        "                                    </div>\n" +
+
+                        "                                    <div class=\"right committee-info-div\">\n" +
+                        "                                        <h4 style=\"text-align: right; margin-right: 20px; \">\n" +
+
+                        "                                        <h3 class=\"committee-name\">\n" +
+
+                        "                                            Name: "+value.em_name+"\n" +
+
+                        "                                        </h3>\n" +
+
+
+                        "                                        <p style=\"text-align: right; margin-right: 20px\">\n" +
+
+                        "                                            Designation: "+value.ds_name+" \n" +
+
+                        "                                        </p>\n" +
+
+                        "                                    </div>\n" +
+
+                        "                                </div>\n" +
+
+                        "                            </div>"
+
+
+
+                }
+                );
+
+                $.each (Security_Manager, function (key, value)
+                 {
+
+                     
+
+
+                    Security_Manager_res +=
+
+                        "                            <div class=\"card\" style=\"width: 70%; margin: 0 auto\">\n" +
+
+                        "                                <div class=\"card-header d-flex justify-content-end\">\n" +
+
+                        "                                    <a href=\"javascript:void(0)\"\n" +
+
+                        "                                       id=\"send-mail\" data-id=\""+value.id+"\"\n" +
+                        ">Send Mail <i class=\"fas fa-paper-plane\"></i></a>\n" +
+
+                        "                                    <a href=\"javascript:void(0)\"\n" +
+
+                        "                                       id=\"edit\" data-id=\""+value.id+"\"\n" +
+
+                        "                                       data-bs-toggle=\"modal\"\n" +
+
+                        "                                       data-bs-target=\"#edit_committee\"> Edit <i class=\"fas fa-edit\"></i></a>\n" +
+
+                        "                                </div>\n" +
+
+                        "                                <div class=\"row\" style=\"padding: 20px 0px\">\n" +
+
+                        "                                    <div class=\"left\" style=\"float: left; width: 40%\">\n" +
+
+                        "                                        <img class=\"committee-img\"\n" +
+
+                        "                                             src=\"{{ asset('uploads/l_employees') }}"+'/'+"" +value.em_profile+"\"\n" +
+
+                        "                                             alt=\"\"\n" +
+
+                        "                                             height=\"150px\"/>\n" +
+
+                        "                                    </div>\n" +
+
+                        "                                    <div class=\"right committee-info-div\">\n" +
+                        "                                        <h4 style=\"text-align: right; margin-right: 20px; \">\n" +
+
+                        "                                        <h3 class=\"committee-name\">\n" +
+
+                        "                                            Name: "+value.em_name+"\n" +
+
+                        "                                        </h3>\n" +
+
+
+                        "                                        <p style=\"text-align: right; margin-right: 20px\">\n" +
+
+                        "                                            Designation: "+value.ds_name+" \n" +
+
+                        "                                        </p>\n" +
+
+                        "                                    </div>\n" +
+
+                        "                                </div>\n" +
+
+                        "                            </div>"
+
+
+
+                }
+                );
+
+                
+                 $('#Security_Manager').html(Security_Manager_res);
+
+                $('#emergency_manager').html(emergency_manager_res);
+
+                $('#incident_manager').html(incident_manager_res);
+
+                $('#search_rescue_team').html(search_rescue_team_res);
+
+                $('#medic_team').html(medic_team_res);
+
+                $('#area_warden').html(area_warden_res);
+
+                $('#traffic_control').html(traffic_control_res);
+                
 
             });
 
@@ -756,7 +1071,7 @@
 
                     type:'POST',
 
-                    url: "/safety_committee/update"+'/'+ id,
+                    url: "/ERP/update/"+''+ id,
 
                     data: formData,
 
@@ -806,7 +1121,7 @@
 
                 $('#edit_committee').find('span.error-text').text('');
 
-                $.post('/safety_committee/edit'+'/'+ id,{ id:id }, function (data) {
+                $.post('/ERP/edit'+'/'+ id,{ id:id }, function (data) {
 
                     console.log(committeeData);
 
@@ -818,13 +1133,13 @@
 
 
 
-                    $('#edit_committee').find('input[name="id"]').val(data.safety_committee.id);
+                    $('#edit_committee').find('input[name="id"]').val(data.erp.id);
 
-                    $('#edit_committee').find('select[name="employee_id"]').val(data.safety_committee.employee_id);
+                    $('#edit_committee').find('select[name="employee_id"]').val(data.erp.employee_id);
 
-                    $('#edit_committee').find('select[name="designation"]').val(data.safety_committee.designation);
+                    $('#edit_committee').find('select[name="designation"]').val(data.erp.designation);
 
-                    $('#edit_committee').find('#old_committee_pic').attr('src', "{{ asset('uploads/safetyCommittee') }}"+ '/' + data.safety_committee.photo);
+                    $('#edit_committee').find('#old_committee_pic').attr('src', "{{ asset('uploads/safetyCommittee') }}"+ '/' + data.erp.photo);
 
                     // $('#expadd').modal('show');
 

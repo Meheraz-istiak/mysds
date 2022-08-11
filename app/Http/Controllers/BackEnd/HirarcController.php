@@ -29,6 +29,7 @@ class HirarcController extends Controller
         $l_employee = l_employee::where('company_id', '=', $user->company_id)->get();
 
         $reference_no=Helper::IDGenerator(new I_hirarc,'reference_no',5,'Ref');
+        
         $data = DB::table('i_hirarcs')
             ->join('departments', 'i_hirarcs.depertment_id', 'departments.id')
             ->select('i_hirarcs.*', 'departments.depertment_name')

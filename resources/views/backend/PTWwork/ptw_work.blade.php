@@ -270,10 +270,7 @@
 @endsection
 
 @section('javascript')
-    <script src="{{asset('assets/bundles/libscripts.bundle.js')}}"></script>
-
-    <script src="{{asset('assets/bundles/dataTables.bundle.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
 
         <script>
         // project data table
@@ -287,6 +284,34 @@
                 processing: true,
                 serverSide: true,
                 dom: 'lBfrtip<"actions">',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Department Data',
+                        text:      '<i class="fa-solid fa-file-excel"></i> Excel',
+                        className: "btn btn-primary btn-sm btn-rounded",
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                    },
+
+                     {
+                        extend: 'print',
+                        title: 'Department Data',
+                        alignment: "center",
+                        header: true,
+                        text:  '<i class="fa-solid fa-print"></i> Print',
+                        className: "btn btn-success btn-sm btn-rounded",
+                        exportOptions: {
+                            columns: ':visible',
+                            alignment: "center",
+                        },
+                        // customize: function(doc) {
+                        //     console.log(doc)
+                        // }
+                    },
+                   
+                ],
                
                 ajax: {
                     url: "{{ route('ptw_work.datatable') }}",

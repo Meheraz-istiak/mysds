@@ -148,6 +148,7 @@
 
 @section('javascript')
     <script>
+        alert('done');
         // project data table
         $(document).ready(function () {
             setTimeout(function () {
